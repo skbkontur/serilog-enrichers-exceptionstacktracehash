@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0-*",
+    "description": "Enrich Serilog log events with properties from System.Exception.",
+  "authors": [
+    "Yury Pliner"
+  ],
+  "packOptions": {
+    "tags": [
+      "serilog",
+      "exception",
+      "enricher"
+    ],
+    "projectUrl": "https://github.com/Pliner/serilog-enrichers-exceptionstacktracehash",
+    "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0"
+  },
+    "dependencies": {
+        "Serilog": "2.0.0"
+    },
+  "frameworks": {
+    "net4.5": {
+      "define": ["ENV_USER_NAME"]
+    },
+    "netstandard1.3": {
+        "dependencies": {
+            "System.Diagnostics.StackTrace": "4.0.1",
+            "System.Runtime.Extensions": "4.1.0"
+        }
+    }
+  }
+}
