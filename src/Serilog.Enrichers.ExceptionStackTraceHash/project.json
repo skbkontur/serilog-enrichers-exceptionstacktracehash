@@ -10,7 +10,7 @@
       "exception",
       "enricher"
     ],
-    "projectUrl": "https://github.com/Pliner/serilog-enrichers-exceptionstacktracehash",
+    "projectUrl": "https://github.com/skbkontur/serilog-enrichers-exceptionstacktracehash",
     "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0"
   },
     "dependencies": {
