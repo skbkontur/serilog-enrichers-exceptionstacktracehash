@@ -18,7 +18,7 @@
     },
   "frameworks": {
     "net4.5": {
-      "define": ["ENV_USER_NAME"]
+      "define": []
     },
     "netstandard1.3": {
         "dependencies": {
