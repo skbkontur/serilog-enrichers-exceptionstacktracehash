@@ -65,8 +65,15 @@ namespace Serilog.Enrichers
 
         private string GetExceptionStackTraceHash(Exception exception)
         {
-            var stackTraceString = (_includeExceptionFullName ? exception.GetType().FullName : string.Empty) + new StackTrace(exception, false);
-            var stackTraceBytes = Encoding.UTF8.GetBytes(stackTraceString);
+            var stackTrace = new StringBuilder();
+            do
+            {
+                var stackTraceString = (_includeExceptionFullName ? exception.GetType().FullName : string.Empty) + new StackTrace(exception, false);
+                stackTrace.AppendLine(stackTraceString);
+                exception = exception.InnerException;
+            } while (exception != null);
+
+            var stackTraceBytes = Encoding.UTF8.GetBytes(stackTrace.ToString());
             return xxHash.CalculateHash(stackTraceBytes).ToString();
         }
     }
