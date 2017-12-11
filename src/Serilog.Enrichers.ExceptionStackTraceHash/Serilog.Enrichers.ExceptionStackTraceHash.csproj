@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Enrich Serilog log events with properties from System.Exception.</Description>
+    <VersionPrefix>1.1.1</VersionPrefix>
+    <Authors>Yury Pliner</Authors>
+    <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
+    <AssemblyName>Serilog.Enrichers.ExceptionStackTraceHash</AssemblyName>
+    <PackageId>Serilog.Enrichers.ExceptionStackTraceHash</PackageId>
+    <PackageTags>serilog;exception;enricher</PackageTags>
+    <PackageProjectUrl>https://github.com/skbkontur/serilog-enrichers-exception</PackageProjectUrl>
+    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.4.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="System.Diagnostics.StackTrace" Version="4.0.1" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>
