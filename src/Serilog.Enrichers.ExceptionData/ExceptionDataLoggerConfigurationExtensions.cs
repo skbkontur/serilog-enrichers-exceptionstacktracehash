@@ -25,18 +25,16 @@ namespace Serilog
     public static class ExceptionDataLoggerConfigurationExtensions
     {
         /// <summary>
-        /// Enrich log events with an ExceptionData property containing the collection of key/value pairs that provide additional user-defined information about the exception.
+        /// Enrich log events with a properties from the collection of key/value pairs that provide additional user-defined information about the exception.
         /// </summary>
         /// <param name="enrichmentConfiguration">Logger enrichment configuration.</param>
-        /// <param name="exceptionDataPropertyName">Property name for data of exception.</param>
         /// <returns>Configuration object allowing method chaining.</returns>
         public static LoggerConfiguration WithExceptionData(
-           this LoggerEnrichmentConfiguration enrichmentConfiguration,
-           string exceptionDataPropertyName = null
+           this LoggerEnrichmentConfiguration enrichmentConfiguration
            )
         {
             if (enrichmentConfiguration == null) throw new ArgumentNullException(nameof(enrichmentConfiguration));
-            return enrichmentConfiguration.With(new ExceptionDataEnricher(exceptionDataPropertyName));
+            return enrichmentConfiguration.With(new ExceptionDataEnricher());
         }
     }
 }

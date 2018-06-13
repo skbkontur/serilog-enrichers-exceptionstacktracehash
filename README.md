@@ -40,5 +40,5 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 ```
 
-The `WithExceptionData()` enricher will add a `ExceptionData` property to produced events.
+The `WithExceptionData()` enricher will add a properties from exception's `Data` property to produced events.
                                                                                                                                            

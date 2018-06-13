@@ -20,25 +20,10 @@ using Serilog.Events;
 namespace Serilog.Enrichers
 {
     /// <summary>
-    /// Enrich log events with an ExceptionData property containing the collection of key/value pairs that provide additional user-defined information about the exception.
+    /// Enrich log events with a properties from the collection of key/value pairs that provide additional user-defined information about the exception.
     /// </summary>
     public class ExceptionDataEnricher : ILogEventEnricher
     {
-        /// <summary>
-        /// The property name added to enriched log events.
-        /// </summary>
-        string _exceptionDataPropertyName;
-
-        /// <summary>
-        /// The default name of the property added to enriched log events.
-        /// </summary>
-        public const string DefaultExceptionDataPropertyName = "ExceptionData";
-
-        public ExceptionDataEnricher(string exceptionDataPropertyName = null)
-        {
-            _exceptionDataPropertyName = exceptionDataPropertyName ?? DefaultExceptionDataPropertyName;
-        }
-
         /// <summary>
         /// Enrich the log event.
         /// </summary>
@@ -47,15 +32,14 @@ namespace Serilog.Enrichers
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
             if (logEvent.Exception?.Data == null || logEvent.Exception.Data.Count == 0) return;
-
-            var dataDictionary = logEvent.Exception.Data
-                                         .Cast<DictionaryEntry>()
-                                         .Where(e => e.Key is string)
-                                         .ToDictionary(e => (string) e.Key, e => e.Value);
-
-            var property = propertyFactory.CreateProperty(_exceptionDataPropertyName, dataDictionary, true);
-
-            logEvent.AddPropertyIfAbsent(property);
+            
+            foreach (var element in logEvent.Exception.Data.Cast<DictionaryEntry>())
+            {
+                if (element.Key is string propertyName && !string.IsNullOrEmpty(propertyName))
+                {
+                    logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty(propertyName, element.Value, true));
+                }
+            }
         }
     }
 }
