@@ -19,45 +19,16 @@ namespace Serilog.Tests.Enrichers
 
             try
             {
-                throw new Exception {Data = {{"key", "value"}}};
+                throw new Exception {Data = {{"key1", "value1"}, {"key2", "value2"}}};
             }
             catch (Exception exception)
             {
-                log.Information(exception, "Has an ExceptionData property");
+                log.Information(exception, "Have properties from Exception.Data");
             }
-
-            var actual = evt.Properties["ExceptionData"].DictionaryValue();
 
             Assert.NotNull(evt);
-            Assert.Equal(1, actual.Count);
-            Assert.Equal("key", (string) actual.Single().Key.Value);
-            Assert.Equal("value", (string) actual.Single().Value.LiteralValue());
-        }
-
-        [Fact]
-        public void ExceptionDataEnricherWithCustomPropertyNameIsApplied()
-        {
-            LogEvent evt = null;
-            var log = new LoggerConfiguration()
-                .Enrich.WithExceptionData("YetAnotherExceptionData")
-                .WriteTo.Sink(new DelegatingSink(e => evt = e))
-                .CreateLogger();
-
-            try
-            {
-                throw new Exception {Data = {{"key", "value"}}};
-            }
-            catch (Exception exception)
-            {
-                log.Information(exception, "Has an YetAnotherExceptionData property");
-            }
-
-            var actual = evt.Properties["YetAnotherExceptionData"].DictionaryValue();
-
-            Assert.NotNull(evt);
-            Assert.Equal(1, actual.Count);
-            Assert.Equal("key", (string) actual.Single().Key.Value);
-            Assert.Equal("value", (string) actual.Single().Value.LiteralValue());
+            Assert.Equal("value1", (string) evt.Properties["key1"].LiteralValue());
+            Assert.Equal("value2", (string) evt.Properties["key2"].LiteralValue());
         }
     }
 }
