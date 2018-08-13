@@ -7,7 +7,7 @@ Enriches Serilog events with hash from exception's stack trace.
 To use the enricher, first install the NuGet package:
 
 ```powershell
-Install-Package Serilog.Enrichers.Exception
+Install-Package Serilog.Enrichers.ExceptionStackTraceHash
 ```
 
 Then, apply the enricher to you `LoggerConfiguration`:
@@ -28,7 +28,7 @@ Enriches Serilog events with collection of key/value pairs from exception's `Dat
 To use the enricher, first install the NuGet package:
 
 ```powershell
-Install-Package Serilog.Enrichers.Exception
+Install-Package Serilog.Enrichers.ExceptionData
 ```
 
 Then, apply the enricher to you `LoggerConfiguration`:
