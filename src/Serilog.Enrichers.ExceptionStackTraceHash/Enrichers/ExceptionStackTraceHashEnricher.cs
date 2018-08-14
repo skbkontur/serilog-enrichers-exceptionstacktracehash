@@ -42,7 +42,7 @@ namespace Serilog.Enrichers
         bool _removeGuids;
 
         /// <summary>
-        /// Whether to remove GUIDs from exception's stacktrace
+        /// The default name of the property added to enriched log events.
         /// </summary>
         public const string DefaultExceptionStackTraceHashPropertyName = "ExceptionStackTraceHash";
 
