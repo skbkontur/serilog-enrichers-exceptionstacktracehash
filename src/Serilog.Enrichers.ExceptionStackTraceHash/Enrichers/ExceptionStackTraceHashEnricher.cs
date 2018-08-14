@@ -37,7 +37,7 @@ namespace Serilog.Enrichers
         string _exceptionStackTraceHashPropertyName;
 
         /// <summary>
-        /// The property name added to enriched log events.
+        /// Whether to remove GUIDs from exception's stacktrace
         /// </summary>
         bool _removeGuids;
 
