@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>Enrich Serilog log events with properties from System.Exception.</Description>
-    <VersionPrefix>1.1.2</VersionPrefix>
+    <VersionPrefix>1.2.0</VersionPrefix>
     <Authors>Yury Pliner</Authors>
     <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
     <AssemblyName>Serilog.Enrichers.ExceptionStackTraceHash</AssemblyName>
