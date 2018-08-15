@@ -30,15 +30,17 @@ namespace Serilog
         /// <param name="enrichmentConfiguration">Logger enrichment configuration.</param>
         /// <param name="exceptionStackTraceHashPropertyName">Property name for stack trace of exception.</param>
         /// <param name="includeExceptionFullname">Allow to include exception type fullname to stack trace.</param>
+        /// <param name="ignoreGuids">Whether to remove GUIDs from exception's stacktrace</param>
         /// <returns>Configuration object allowing method chaining.</returns>
         public static LoggerConfiguration WithExceptionStackTraceHash(
            this LoggerEnrichmentConfiguration enrichmentConfiguration,
            string exceptionStackTraceHashPropertyName = null,
-           bool includeExceptionFullname = false
+           bool includeExceptionFullname = false,
+           bool ignoreGuids = false
            )
         {
             if (enrichmentConfiguration == null) throw new ArgumentNullException(nameof(enrichmentConfiguration));
-            return enrichmentConfiguration.With(new ExceptionStackTraceHashEnricher(exceptionStackTraceHashPropertyName, includeExceptionFullname));
+            return enrichmentConfiguration.With(new ExceptionStackTraceHashEnricher(exceptionStackTraceHashPropertyName, includeExceptionFullname, ignoreGuids));
         }
     }
 }

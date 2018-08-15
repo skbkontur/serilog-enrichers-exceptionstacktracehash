@@ -37,14 +37,23 @@ namespace Serilog.Enrichers
         string _exceptionStackTraceHashPropertyName;
 
         /// <summary>
+        /// Whether to remove GUIDs from exception's stacktrace
+        /// </summary>
+        bool _ignoreGuids;
+
+        /// <summary>
         /// The default name of the property added to enriched log events.
         /// </summary>
         public const string DefaultExceptionStackTraceHashPropertyName = "ExceptionStackTraceHash";
 
-        public ExceptionStackTraceHashEnricher(string exceptionStackTraceHashPropertyName = null, bool includeExceptionFullName = false)
+        public ExceptionStackTraceHashEnricher(
+            string exceptionStackTraceHashPropertyName = null, 
+            bool includeExceptionFullName = false,
+            bool ignoreGuids = false)
         {
             _includeExceptionFullName = includeExceptionFullName;
             _exceptionStackTraceHashPropertyName = exceptionStackTraceHashPropertyName ?? DefaultExceptionStackTraceHashPropertyName;
+            _ignoreGuids = ignoreGuids;
         }
 
 
@@ -73,7 +82,8 @@ namespace Serilog.Enrichers
                 exception = exception.InnerException;
             } while (exception != null);
 
-            var stackTraceBytes = Encoding.UTF8.GetBytes(stackTrace.ToString());
+            var totalStackTraceString = _ignoreGuids ? stackTrace.ToString().RemoveGuids() : stackTrace.ToString();
+            var stackTraceBytes = Encoding.UTF8.GetBytes(totalStackTraceString);
             return xxHash.CalculateHash(stackTraceBytes).ToString();
         }
     }
