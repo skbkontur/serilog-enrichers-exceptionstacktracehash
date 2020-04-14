@@ -8,7 +8,7 @@
     <AssemblyName>Serilog.Enrichers.ExceptionStackTraceHash</AssemblyName>
     <PackageId>Serilog.Enrichers.ExceptionStackTraceHash</PackageId>
     <PackageTags>serilog;exception;enricher</PackageTags>
-    <PackageProjectUrl>https://github.com/skbkontur/serilog-enrichers-exception</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/skbkontur/serilog-enrichers-exceptionstacktracehash</PackageProjectUrl>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
   </PropertyGroup>
