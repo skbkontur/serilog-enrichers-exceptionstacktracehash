@@ -42,6 +42,11 @@ namespace Serilog.Enrichers
         bool _ignoreGuids;
 
         /// <summary>
+        /// Whether to normalize lambda_methods in exception's stacktrace
+        /// </summary>
+        bool _normalizeLambdaMethods;
+
+        /// <summary>
         /// The default name of the property added to enriched log events.
         /// </summary>
         public const string DefaultExceptionStackTraceHashPropertyName = "ExceptionStackTraceHash";
@@ -49,11 +54,13 @@ namespace Serilog.Enrichers
         public ExceptionStackTraceHashEnricher(
             string exceptionStackTraceHashPropertyName = null, 
             bool includeExceptionFullName = false,
-            bool ignoreGuids = false)
+            bool ignoreGuids = false,
+            bool normalizeLambdaMethods = false)
         {
             _includeExceptionFullName = includeExceptionFullName;
             _exceptionStackTraceHashPropertyName = exceptionStackTraceHashPropertyName ?? DefaultExceptionStackTraceHashPropertyName;
             _ignoreGuids = ignoreGuids;
+            _normalizeLambdaMethods = normalizeLambdaMethods;
         }
 
 
@@ -83,6 +90,7 @@ namespace Serilog.Enrichers
             } while (exception != null);
 
             var totalStackTraceString = _ignoreGuids ? stackTrace.ToString().RemoveGuids() : stackTrace.ToString();
+            totalStackTraceString = _normalizeLambdaMethods ? totalStackTraceString.NormalizeLambdaMethods() : totalStackTraceString;
             var stackTraceBytes = Encoding.UTF8.GetBytes(totalStackTraceString);
             return xxHash.CalculateHash(stackTraceBytes).ToString();
         }
