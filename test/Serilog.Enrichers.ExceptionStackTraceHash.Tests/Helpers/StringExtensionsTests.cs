@@ -16,5 +16,15 @@ namespace Serilog.Tests.Helpers
         {
             Assert.Equal(expected, initial.RemoveGuids());
         }
+
+        [Theory]
+        [InlineData("", "")]
+        [InlineData("Still no lambda methods here", "Still no lambda methods here")]
+        [InlineData("lambda_method1337", "lambda_method~")]
+        [InlineData("lambda_method1337ablambda_method1337cd", "lambda_method~ablambda_method~cd")]
+        public void TestNormalizeLambdaMethods(string initial, string expected)
+        {
+            Assert.Equal(expected, initial.NormalizeLambdaMethods());
+        }
     }
 }
